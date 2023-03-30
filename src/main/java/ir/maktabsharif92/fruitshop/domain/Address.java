@@ -46,4 +46,14 @@ public class Address extends Entity {
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id='" + getId() + '\'' +
+                ", title='" + title + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
