@@ -2,7 +2,7 @@ package ir.maktabsharif92.fruitshop.base.repository;
 
 import ir.maktabsharif92.fruitshop.base.domain.Entity;
 
-interface BaseRepository {
+public interface BaseRepository {
 
     void insert(Entity entity);
 
