@@ -4,7 +4,7 @@ import ir.maktabsharif92.fruitshop.base.domain.Entity;
 
 import java.util.Objects;
 
-public class BaseRepositoryImpl implements BaseRepository {
+public abstract class BaseRepositoryImpl implements BaseRepository {
 
     protected Entity[] entities;
 
@@ -15,7 +15,7 @@ public class BaseRepositoryImpl implements BaseRepository {
     }
 
     @Override
-    public void insert(Entity entity) {
+    public void save(Entity entity) {
         int length = entities.length;
         Entity en = entities[length - 1];
         if (en != null) {
@@ -71,6 +71,7 @@ public class BaseRepositoryImpl implements BaseRepository {
             } else {
                 if (entities[i + 1] != null) {
                     entities[i] = entities[i + 1];
+                    entities[i + 1] = null;
                 } else {
                     break;
                 }

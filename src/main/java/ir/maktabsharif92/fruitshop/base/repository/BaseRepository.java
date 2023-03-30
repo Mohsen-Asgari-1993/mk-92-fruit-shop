@@ -4,7 +4,7 @@ import ir.maktabsharif92.fruitshop.base.domain.Entity;
 
 public interface BaseRepository {
 
-    void insert(Entity entity);
+    void save(Entity entity);
 
     Entity getById(Long id);
 
