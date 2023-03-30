@@ -54,6 +54,7 @@ public class Address extends Entity {
                 ", title='" + title + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", address='" + address + '\'' +
+                ", customerId='" + customerId + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package ir.maktabsharif92.fruitshop.base.repository;
 
 import ir.maktabsharif92.fruitshop.base.domain.Entity;
+import ir.maktabsharif92.fruitshop.util.ArrayUtil;
 
 import java.util.Objects;
 
@@ -16,14 +17,9 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
 
     @Override
     public void save(Entity entity) {
-        int length = entities.length;
-        Entity en = entities[length - 1];
-        if (en != null) {
-            increaseArrayLength();
-        }
+        this.entities = ArrayUtil.increaseArrayLengthIfNecessaryAndGetNewArray(this.entities);
         addEntityToArray(entity);
     }
-
 
     @Override
     public Entity getById(Long id) {
@@ -77,16 +73,6 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
                 }
             }
         }
-    }
-
-    protected void increaseArrayLength() {
-        Entity[] newEntities = new Entity[(entities.length * 2)];
-
-        for (int i = 0; i < entities.length; i++) {
-            newEntities[i] = this.entities[i];
-        }
-
-        this.entities = newEntities;
     }
 
     protected void addEntityToArray(Entity entity) {

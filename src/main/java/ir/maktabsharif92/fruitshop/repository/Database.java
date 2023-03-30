@@ -5,7 +5,7 @@ import ir.maktabsharif92.fruitshop.domain.*;
 
 public abstract class Database {
 
-    private static final int DEFAULT_ARRAY_LENGTH = 5;
+    public static final int DEFAULT_ARRAY_LENGTH = 5;
 
     public static final User[] users = new User[DEFAULT_ARRAY_LENGTH];
 
