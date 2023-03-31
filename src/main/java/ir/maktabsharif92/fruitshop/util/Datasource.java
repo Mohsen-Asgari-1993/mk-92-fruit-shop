@@ -22,7 +22,10 @@ public class Datasource {
                 ApplicationProperties.DATABASE_PASSWORD
         );
         hikariConfig.setMaximumPoolSize(10);
-//        hikariConfig.addDataSourceProperty();
+        hikariConfig.setAutoCommit(true);
+        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         dataSource = new HikariDataSource(hikariConfig);
     }
 

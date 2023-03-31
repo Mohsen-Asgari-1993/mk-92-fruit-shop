@@ -12,7 +12,7 @@ public abstract class BaseJDBCRepository implements BaseRepository {
             "SELECT * FROM %s";
     protected final Connection connection;
 
-    protected BaseJDBCRepository(Connection connection) {
+    public BaseJDBCRepository(Connection connection) {
         this.connection = connection;
     }
 
@@ -31,14 +31,20 @@ public abstract class BaseJDBCRepository implements BaseRepository {
 
     @Override
     public Entity[] getAll() throws SQLException {
-        Statement statement = connection.createStatement();
+        Statement statement = connection.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_READ_ONLY
+        );
+
         ResultSet resultSet = statement.executeQuery(
                 generateGetAllQuery()
         );
 
-        int fetchSize = resultSet.getFetchSize();
-        if (fetchSize > 0) {
-            Entity[] entities = new Entity[fetchSize];
+        resultSet.last();
+        int size = resultSet.getRow();
+        resultSet.beforeFirst();
+        if (size > 0) {
+            Entity[] entities = new Entity[size];
             int index = 0;
             while (resultSet.next()) {
 
@@ -74,6 +80,6 @@ public abstract class BaseJDBCRepository implements BaseRepository {
 
     protected abstract String getEntityTableName();
 
-    protected abstract Entity mapFullResultSetToEntity(ResultSet resultSet);
+    protected abstract Entity mapFullResultSetToEntity(ResultSet resultSet) throws SQLException;
 
 }

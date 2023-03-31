@@ -1,30 +1,38 @@
 package ir.maktabsharif92.fruitshop;
 
 import com.github.javafaker.Faker;
+import ir.maktabsharif92.fruitshop.base.domain.Entity;
 import ir.maktabsharif92.fruitshop.domain.Address;
-import ir.maktabsharif92.fruitshop.repository.Database;
+import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
+import ir.maktabsharif92.fruitshop.util.Datasource;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 public class FruitShopApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-        System.out.println("before init address: " + Database.getAddresses().length);
+        ProvinceRepository provinceRepository = ApplicationContext.getProvinceRepository();
 
-        initAddress();
+        Entity[] entities = provinceRepository.getAll();
+        if (entities != null && entities.length > 0) {
+            for (Entity en : entities) {
+                System.out.println(en);
+            }
+        }
 
-        System.out.println("after init address: " + Database.getAddresses().length);
+        System.out.println();
 
-        /*Address address = (Address) ApplicationContext.getAddressRepository().getById(1L);
+        System.out.println(
+                provinceRepository.getById(1L)
+        );
+        System.out.println(
+                provinceRepository.getById(8L)
+        );
 
-        Address[] customerAddress = ApplicationContext.getAddressRepository()
-                .findAllByCustomerId(address.getCustomerId());
-
-        for (Address a : customerAddress) {
-            System.out.println(a);
-        }*/
+        Datasource.getConnection().close();
 
     }
 
