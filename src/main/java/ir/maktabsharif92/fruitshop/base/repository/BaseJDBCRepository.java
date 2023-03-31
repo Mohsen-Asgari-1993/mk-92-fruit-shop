@@ -26,10 +26,8 @@ public abstract class BaseJDBCRepository implements BaseRepository {
 
     @Override
     public void save(Entity entity) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(
-                generateInsertQuery(entity)
-        );
+//        saveFirstApproach(entity);
+        saveSecondApproach(entity);
     }
 
     @Override
@@ -110,12 +108,54 @@ public abstract class BaseJDBCRepository implements BaseRepository {
         );
     }
 
-    private String generateInsertQuery(Entity entity) {
+    private String generateInsertQueryFirstApproach(Entity entity) {
         return String.format(
                 INSERT_QUERY_TEMPLATE,
                 getEntityTableName(),
                 getInsertColumnNames(),
                 getInsertColumnValues(entity)
+        );
+    }
+
+    protected void saveSecondApproach(Entity entity) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                generateInsertQuerySecondApproach()
+        );
+        fillPrepStatementForSave(preparedStatement, entity);
+        preparedStatement.executeUpdate();
+    }
+
+    protected abstract void fillPrepStatementForSave(PreparedStatement preparedStatement, Entity entity) throws SQLException;
+
+    protected String generateInsertQuerySecondApproach() {
+        String[] columnNames = getInsertColumnNamesArray();
+
+        return String.format(
+                INSERT_QUERY_TEMPLATE,
+                getEntityTableName(),
+                String.join(",", columnNames),
+                generateQuestionMarkForInsertQuery(columnNames.length)
+        );
+    }
+
+    protected String generateQuestionMarkForInsertQuery(int length) {
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            if (i == length - 1) {
+                result = result.concat("?");
+            } else {
+                result = result.concat("?,");
+            }
+        }
+        return result;
+    }
+
+    protected abstract String[] getInsertColumnNamesArray();
+
+    private void saveFirstApproach(Entity entity) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(
+                generateInsertQueryFirstApproach(entity)
         );
     }
 

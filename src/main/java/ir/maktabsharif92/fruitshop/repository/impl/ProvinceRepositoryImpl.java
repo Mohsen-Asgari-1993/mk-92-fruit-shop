@@ -49,6 +49,20 @@ public class ProvinceRepositoryImpl extends BaseJDBCRepository
     }
 
     @Override
+    protected void fillPrepStatementForSave(PreparedStatement preparedStatement, Entity entity) throws SQLException {
+        preparedStatement.setString(
+                1, ((Province) entity).getName()
+        );
+    }
+
+    @Override
+    protected String[] getInsertColumnNamesArray() {
+        return new String[]{
+                Province.NAME
+        };
+    }
+
+    @Override
     public Province getByName(String name) throws SQLException {
         String query = "SELECT * FROM " + getEntityTableName() + " WHERE name = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

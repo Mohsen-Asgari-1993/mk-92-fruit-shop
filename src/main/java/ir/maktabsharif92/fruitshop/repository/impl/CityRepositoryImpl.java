@@ -6,6 +6,7 @@ import ir.maktabsharif92.fruitshop.domain.City;
 import ir.maktabsharif92.fruitshop.repository.CityRepository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -46,5 +47,25 @@ public class CityRepositoryImpl extends BaseJDBCRepository implements CityReposi
     protected String getInsertColumnValues(Entity entity) {
         City city = (City) entity;
         return "'" + city.getName() + "', " + city.getProvinceId();
+    }
+
+
+    @Override
+    protected void fillPrepStatementForSave(PreparedStatement preparedStatement, Entity entity) throws SQLException {
+        City city = (City) entity;
+        preparedStatement.setString(
+                1, city.getName()
+        );
+        preparedStatement.setLong(
+                2, city.getProvinceId()
+        );
+    }
+
+    @Override
+    protected String[] getInsertColumnNamesArray() {
+        return new String[]{
+                City.NAME,
+                City.PROVINCE_ID
+        };
     }
 }

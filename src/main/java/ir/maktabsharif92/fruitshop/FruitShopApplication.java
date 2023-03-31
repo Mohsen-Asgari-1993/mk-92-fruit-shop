@@ -23,7 +23,7 @@ public class FruitShopApplication {
         }
         System.out.println("--------------------------------");
 
-        cityRepository.save(new City("natanz", 2L));
+        cityRepository.save(new City("rey", 1L));
 
         entities = cityRepository.getAll();
         for (Entity en : entities) {
