@@ -3,6 +3,8 @@ package ir.maktabsharif92.fruitshop.base.service;
 import ir.maktabsharif92.fruitshop.base.domain.Entity;
 import ir.maktabsharif92.fruitshop.base.repository.BaseRepository;
 
+import java.sql.SQLException;
+
 public abstract class BaseServiceImpl implements BaseService {
 
     protected final BaseRepository repository;
@@ -17,12 +19,12 @@ public abstract class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public Entity getById(Long id) {
+    public Entity getById(Long id) throws SQLException {
         return repository.getById(id);
     }
 
     @Override
-    public Entity[] getAll() {
+    public Entity[] getAll() throws SQLException {
         return repository.getAll();
     }
 
