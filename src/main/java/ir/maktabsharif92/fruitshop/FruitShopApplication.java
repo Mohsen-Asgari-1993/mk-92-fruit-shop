@@ -2,6 +2,7 @@ package ir.maktabsharif92.fruitshop;
 
 import com.github.javafaker.Faker;
 import ir.maktabsharif92.fruitshop.domain.Address;
+import ir.maktabsharif92.fruitshop.repository.Database;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
 
 import java.util.Random;
@@ -10,16 +11,20 @@ public class FruitShopApplication {
 
     public static void main(String[] args) {
 
+        System.out.println("before init address: " + Database.getAddresses().length);
+
         initAddress();
 
-        Address address = (Address) ApplicationContext.getAddressRepository().getById(1L);
+        System.out.println("after init address: " + Database.getAddresses().length);
+
+        /*Address address = (Address) ApplicationContext.getAddressRepository().getById(1L);
 
         Address[] customerAddress = ApplicationContext.getAddressRepository()
                 .findAllByCustomerId(address.getCustomerId());
 
         for (Address a : customerAddress) {
             System.out.println(a);
-        }
+        }*/
 
     }
 

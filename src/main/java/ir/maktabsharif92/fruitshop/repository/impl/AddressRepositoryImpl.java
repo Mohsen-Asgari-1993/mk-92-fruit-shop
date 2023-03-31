@@ -35,4 +35,9 @@ public class AddressRepositoryImpl extends BaseRepositoryImpl
 
         return customerAddress;
     }
+
+    @Override
+    protected void copyTable() {
+        Database.setAddresses((Address[]) entities);
+    }
 }

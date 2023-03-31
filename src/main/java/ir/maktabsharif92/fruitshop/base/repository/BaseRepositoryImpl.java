@@ -18,8 +18,11 @@ public abstract class BaseRepositoryImpl implements BaseRepository {
     @Override
     public void save(Entity entity) {
         this.entities = ArrayUtil.increaseArrayLengthIfNecessaryAndGetNewArray(this.entities);
+        copyTable();
         addEntityToArray(entity);
     }
+
+    protected abstract void copyTable();
 
     @Override
     public Entity getById(Long id) {

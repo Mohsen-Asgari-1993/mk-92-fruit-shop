@@ -1,6 +1,7 @@
 package ir.maktabsharif92.fruitshop.base.repository;
 
 import ir.maktabsharif92.fruitshop.base.domain.User;
+import ir.maktabsharif92.fruitshop.repository.Database;
 
 public class BaseUserRepositoryImpl extends BaseRepositoryImpl
         implements BaseUserRepository {
@@ -18,5 +19,10 @@ public class BaseUserRepositoryImpl extends BaseRepositoryImpl
             }
         }
         return null;
+    }
+
+    @Override
+    protected void copyTable() {
+        Database.setUsers((User[]) entities);
     }
 }

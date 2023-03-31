@@ -11,7 +11,7 @@ public class ApplicationContext {
     public static AddressRepository getAddressRepository() {
         if (addressRepository == null) {
             addressRepository =
-                    new AddressRepositoryImpl(Database.addresses);
+                    new AddressRepositoryImpl(Database.getAddresses());
         }
         return addressRepository;
     }
