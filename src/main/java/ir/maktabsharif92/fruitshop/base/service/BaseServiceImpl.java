@@ -29,7 +29,7 @@ public abstract class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws SQLException {
         repository.deleteById(id);
     }
 }

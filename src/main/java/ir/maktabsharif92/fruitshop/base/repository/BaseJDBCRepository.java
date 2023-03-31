@@ -8,8 +8,13 @@ public abstract class BaseJDBCRepository implements BaseRepository {
 
     public static final String GET_BY_ID_QUERY_TEMPLATE =
             "SELECT * FROM %s WHERE id = ?";
+
     public static final String GET_ALL_QUERY_TEMPLATE =
             "SELECT * FROM %s";
+
+    public static final String DELETE_BY_ID_QUERY_TEMPLATE =
+            "DELETE FROM %s WHERE id = ?";
+
     protected final Connection connection;
 
     public BaseJDBCRepository(Connection connection) {
@@ -64,6 +69,15 @@ public abstract class BaseJDBCRepository implements BaseRepository {
 
     }
 
+    @Override
+    public void deleteById(Long id) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                generateDeleteByIdQuery()
+        );
+        preparedStatement.setLong(1, id);
+        preparedStatement.executeUpdate();
+    }
+
     public String generateGetByIdQuery() {
         return String.format(
                 GET_BY_ID_QUERY_TEMPLATE,
@@ -74,6 +88,13 @@ public abstract class BaseJDBCRepository implements BaseRepository {
     public String generateGetAllQuery() {
         return String.format(
                 GET_ALL_QUERY_TEMPLATE,
+                getEntityTableName()
+        );
+    }
+
+    public String generateDeleteByIdQuery() {
+        return String.format(
+                DELETE_BY_ID_QUERY_TEMPLATE,
                 getEntityTableName()
         );
     }

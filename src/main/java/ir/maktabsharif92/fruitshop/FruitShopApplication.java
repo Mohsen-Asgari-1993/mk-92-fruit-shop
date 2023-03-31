@@ -1,7 +1,6 @@
 package ir.maktabsharif92.fruitshop;
 
 import com.github.javafaker.Faker;
-import ir.maktabsharif92.fruitshop.base.domain.Entity;
 import ir.maktabsharif92.fruitshop.domain.Address;
 import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
@@ -16,27 +15,7 @@ public class FruitShopApplication {
 
         ProvinceRepository provinceRepository = ApplicationContext.getProvinceRepository();
 
-        Entity[] entities = provinceRepository.getAll();
-        if (entities != null && entities.length > 0) {
-            for (Entity en : entities) {
-                System.out.println(en);
-            }
-        }
-
-        System.out.println();
-
-        System.out.println(
-                provinceRepository.getById(1L)
-        );
-        System.out.println(
-                provinceRepository.getById(8L)
-        );
-
-        System.out.println();
-
-        System.out.println(
-                "get by name result : " + provinceRepository.getByName("alborz")
-        );
+        provinceRepository.deleteById(1L);
 
         Datasource.getConnection().close();
 

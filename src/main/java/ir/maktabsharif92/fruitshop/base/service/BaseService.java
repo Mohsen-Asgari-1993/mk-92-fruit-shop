@@ -12,6 +12,6 @@ public interface BaseService {
 
     Entity[] getAll() throws SQLException;
 
-    void deleteById(Long id);
+    void deleteById(Long id) throws SQLException;
 
 }

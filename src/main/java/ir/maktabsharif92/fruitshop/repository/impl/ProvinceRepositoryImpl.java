@@ -43,11 +43,6 @@ public class ProvinceRepositoryImpl extends BaseJDBCRepository
     }
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
     public Province getByName(String name) throws SQLException {
         String query = "SELECT * FROM " + getEntityTableName() + " WHERE name = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
