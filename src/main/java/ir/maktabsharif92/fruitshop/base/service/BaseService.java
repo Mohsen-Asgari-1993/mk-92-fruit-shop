@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface BaseService {
 
-    void save(Entity entity);
+    void save(Entity entity) throws SQLException;
 
     Entity getById(Long id) throws SQLException;
 

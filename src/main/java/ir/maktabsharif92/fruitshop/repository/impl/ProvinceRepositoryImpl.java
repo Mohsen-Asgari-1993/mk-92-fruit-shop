@@ -38,8 +38,14 @@ public class ProvinceRepositoryImpl extends BaseJDBCRepository
     }
 
     @Override
-    public void save(Entity entity) {
+    protected String getInsertColumnNames() {
+        return Province.NAME;
+    }
 
+    @Override
+    protected String getInsertColumnValues(Entity entity) {
+        Province province = (Province) entity;
+        return "'" + province.getName() + "'";
     }
 
     @Override

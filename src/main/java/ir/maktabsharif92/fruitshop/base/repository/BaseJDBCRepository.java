@@ -15,10 +15,21 @@ public abstract class BaseJDBCRepository implements BaseRepository {
     public static final String DELETE_BY_ID_QUERY_TEMPLATE =
             "DELETE FROM %s WHERE id = ?";
 
+    public static final String INSERT_QUERY_TEMPLATE =
+            "INSERT INTO %s(%s) VALUES(%s)";
+
     protected final Connection connection;
 
     public BaseJDBCRepository(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public void save(Entity entity) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(
+                generateInsertQuery(entity)
+        );
     }
 
     @Override
@@ -99,8 +110,21 @@ public abstract class BaseJDBCRepository implements BaseRepository {
         );
     }
 
+    private String generateInsertQuery(Entity entity) {
+        return String.format(
+                INSERT_QUERY_TEMPLATE,
+                getEntityTableName(),
+                getInsertColumnNames(),
+                getInsertColumnValues(entity)
+        );
+    }
+
     protected abstract String getEntityTableName();
 
     protected abstract Entity mapFullResultSetToEntity(ResultSet resultSet) throws SQLException;
+
+    protected abstract String getInsertColumnNames();
+
+    protected abstract String getInsertColumnValues(Entity entity);
 
 }

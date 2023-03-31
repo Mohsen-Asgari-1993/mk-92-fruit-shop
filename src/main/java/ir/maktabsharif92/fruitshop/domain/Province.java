@@ -6,6 +6,10 @@ public class Province extends Entity {
 
     public static final String TABLE_NAME = "province";
 
+    public static final String NAME = "name";
+
+
+    //    @Column(name = NAME)
     private String name;
 
     public Province() {

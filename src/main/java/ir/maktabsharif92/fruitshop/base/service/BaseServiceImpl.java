@@ -14,7 +14,7 @@ public abstract class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public void save(Entity entity) {
+    public void save(Entity entity) throws SQLException {
         repository.save(entity);
     }
 

@@ -1,7 +1,9 @@
 package ir.maktabsharif92.fruitshop;
 
 import com.github.javafaker.Faker;
+import ir.maktabsharif92.fruitshop.base.domain.Entity;
 import ir.maktabsharif92.fruitshop.domain.Address;
+import ir.maktabsharif92.fruitshop.domain.Province;
 import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
 import ir.maktabsharif92.fruitshop.util.Datasource;
@@ -15,13 +17,20 @@ public class FruitShopApplication {
 
         ProvinceRepository provinceRepository = ApplicationContext.getProvinceRepository();
 
-        provinceRepository.deleteById(1L);
+        Province province = new Province();
+        province.setName("shiraz");
+        provinceRepository.save(province);
+
+        Entity[] entities = provinceRepository.getAll();
+        for (Entity en : entities) {
+            System.out.println(en);
+        }
 
         Datasource.getConnection().close();
 
     }
 
-    private static void initAddress() {
+    private static void initAddress() throws SQLException {
         Faker faker = new Faker();
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
