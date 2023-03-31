@@ -32,6 +32,12 @@ public class FruitShopApplication {
                 provinceRepository.getById(8L)
         );
 
+        System.out.println();
+
+        System.out.println(
+                "get by name result : " + provinceRepository.getByName("alborz")
+        );
+
         Datasource.getConnection().close();
 
     }

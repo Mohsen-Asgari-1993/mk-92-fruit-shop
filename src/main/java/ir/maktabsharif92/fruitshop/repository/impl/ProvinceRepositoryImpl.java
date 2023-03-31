@@ -6,6 +6,7 @@ import ir.maktabsharif92.fruitshop.domain.Province;
 import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -44,5 +45,17 @@ public class ProvinceRepositoryImpl extends BaseJDBCRepository
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public Province getByName(String name) throws SQLException {
+        String query = "SELECT * FROM " + getEntityTableName() + " WHERE name = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, name);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return (Province) mapFullResultSetToEntity(resultSet);
+        }
+        return null;
     }
 }
