@@ -3,8 +3,8 @@ package ir.maktabsharif92.fruitshop;
 import com.github.javafaker.Faker;
 import ir.maktabsharif92.fruitshop.base.domain.Entity;
 import ir.maktabsharif92.fruitshop.domain.Address;
-import ir.maktabsharif92.fruitshop.domain.Province;
-import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
+import ir.maktabsharif92.fruitshop.domain.City;
+import ir.maktabsharif92.fruitshop.repository.CityRepository;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
 import ir.maktabsharif92.fruitshop.util.Datasource;
 
@@ -15,13 +15,17 @@ public class FruitShopApplication {
 
     public static void main(String[] args) throws SQLException {
 
-        ProvinceRepository provinceRepository = ApplicationContext.getProvinceRepository();
+        CityRepository cityRepository = ApplicationContext.getCityRepository();
 
-        Province province = new Province();
-        province.setName("shiraz");
-        provinceRepository.save(province);
+        Entity[] entities = cityRepository.getAll();
+        for (Entity en : entities) {
+            System.out.println(en);
+        }
+        System.out.println("--------------------------------");
 
-        Entity[] entities = provinceRepository.getAll();
+        cityRepository.save(new City("natanz", 2L));
+
+        entities = cityRepository.getAll();
         for (Entity en : entities) {
             System.out.println(en);
         }
