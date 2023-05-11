@@ -10,7 +10,7 @@ public class UserRepositoryImpl
         extends BaseUserGenericRepositoryImpl<BaseUser>
         implements UserRepository {
 
-    protected UserRepositoryImpl(Connection connection) {
+    public UserRepositoryImpl(Connection connection) {
         super(connection);
     }
 }

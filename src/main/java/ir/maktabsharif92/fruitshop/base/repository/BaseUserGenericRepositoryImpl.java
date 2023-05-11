@@ -12,7 +12,7 @@ public class BaseUserGenericRepositoryImpl<T extends BaseUser>
         extends BaseGenericRepositoryImpl<T, Long>
         implements BaseUserGenericRepository<T> {
 
-    protected BaseUserGenericRepositoryImpl(Connection connection) {
+    public BaseUserGenericRepositoryImpl(Connection connection) {
         super(connection);
     }
 

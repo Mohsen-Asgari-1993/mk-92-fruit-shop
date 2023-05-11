@@ -10,7 +10,7 @@ public class ClientRepositoryImpl
         extends BaseUserGenericRepositoryImpl<Client>
         implements ClientRepository {
 
-    protected ClientRepositoryImpl(Connection connection) {
+    public ClientRepositoryImpl(Connection connection) {
         super(connection);
     }
 

@@ -10,7 +10,7 @@ public class ManagerRepositoryImpl
         extends BaseUserGenericRepositoryImpl<Manager>
         implements ManagerRepository {
 
-    protected ManagerRepositoryImpl(Connection connection) {
+    public ManagerRepositoryImpl(Connection connection) {
         super(connection);
     }
 
