@@ -4,7 +4,7 @@ import ir.maktabsharif92.fruitshop.base.domain.BaseEntity;
 
 import java.util.List;
 
-public class BaseGenericRepositoryImpl<T extends BaseEntity<S>, S>
+public abstract class BaseGenericRepositoryImpl<T extends BaseEntity<S>, S>
         implements BaseGenericRepository<T, S> {
 
     @Override
