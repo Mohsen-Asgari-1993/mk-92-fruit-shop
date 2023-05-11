@@ -31,4 +31,14 @@ public class Wallet extends BaseEntity<Long> {
     //    @Column(name = CREDIT_AMOUNT)
     private Long creditAmount;
 
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "id=" + getId() +
+                ", customerId=" + customerId +
+                ", totalAmount=" + totalAmount +
+                ", cashAmount=" + cashAmount +
+                ", creditAmount=" + creditAmount +
+                '}';
+    }
 }

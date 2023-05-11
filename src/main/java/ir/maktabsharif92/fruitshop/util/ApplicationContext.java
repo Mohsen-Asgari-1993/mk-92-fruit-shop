@@ -1,12 +1,12 @@
 package ir.maktabsharif92.fruitshop.util;
 
-import ir.maktabsharif92.fruitshop.repository.AddressRepository;
-import ir.maktabsharif92.fruitshop.repository.CityRepository;
-import ir.maktabsharif92.fruitshop.repository.Database;
-import ir.maktabsharif92.fruitshop.repository.ProvinceRepository;
+import ir.maktabsharif92.fruitshop.repository.*;
 import ir.maktabsharif92.fruitshop.repository.impl.AddressRepositoryImpl;
 import ir.maktabsharif92.fruitshop.repository.impl.CityRepositoryImpl;
 import ir.maktabsharif92.fruitshop.repository.impl.ProvinceRepositoryImpl;
+import ir.maktabsharif92.fruitshop.repository.impl.WalletRepositoryImpl;
+import ir.maktabsharif92.fruitshop.service.WalletService;
+import ir.maktabsharif92.fruitshop.service.impl.WalletServiceImpl;
 
 import java.sql.SQLException;
 
@@ -17,6 +17,10 @@ public class ApplicationContext {
     private static ProvinceRepository provinceRepository;
 
     private static CityRepository cityRepository;
+
+    private static WalletRepository walletRepository;
+
+    private static WalletService walletService;
 
     public static AddressRepository getAddressRepository() {
         if (addressRepository == null) {
@@ -44,5 +48,24 @@ public class ApplicationContext {
                     );
         }
         return cityRepository;
+    }
+
+    public static WalletRepository getWalletRepository() throws SQLException {
+        if (walletRepository == null) {
+            walletRepository =
+                    new WalletRepositoryImpl(
+                            Datasource.getConnection()
+                    );
+        }
+        return walletRepository;
+    }
+
+    public static WalletService getWalletService() throws SQLException {
+        if (walletService == null) {
+            walletService = new WalletServiceImpl(
+                    getWalletRepository()
+            );
+        }
+        return walletService;
     }
 }
