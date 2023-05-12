@@ -24,6 +24,19 @@ public class UserRepositoryImpl
     }
 
     @Override
+    public void fillDeleteByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException {
+        fillIdInPrepareStatement(preparedStatement, id, 1);
+    }
+
+    @Override
+    public String generateDeleteByIdQuery() {
+        return String.format(
+                DELETE_BY_ID_QUERY_TEMPLATE,
+                getEntityTableName()
+        );
+    }
+
+    @Override
     public String generateGetByIdQuery() {
         return String.format(
                 GET_BY_ID_QUERY_TEMPLATE,

@@ -41,6 +41,28 @@ public class ClientRepositoryImpl
     }
 
     @Override
+    public void fillDeleteByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException {
+        fillIdInPrepareStatement(preparedStatement, id, 1);
+
+        preparedStatement.setString(2, UserType.CLIENT.name());
+    }
+
+    @Override
+    public String generateDeleteByIdQuery() {
+        //        String query = DELETE_BY_ID_QUERY_TEMPLATE.concat(
+//                " and user_type = 'CLIENT'"
+//        );
+        String query = DELETE_BY_ID_QUERY_TEMPLATE.concat(
+                " and user_type = ?"
+        );
+
+        return String.format(
+                query,
+                getEntityTableName()
+        );
+    }
+
+    @Override
     public String generateGetAllQuery() {
 
         String query = GET_ALL_QUERY_TEMPLATE

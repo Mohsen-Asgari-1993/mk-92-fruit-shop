@@ -34,7 +34,21 @@ public abstract class BaseUserGenericRepositoryImpl<T extends BaseUser>
         return null;
     }
 
+    @Override
+    public void deleteById(Long id) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                generateDeleteByIdQuery()
+        );
+        fillDeleteByIdPrepareStatement(preparedStatement, id);
+        preparedStatement.executeUpdate();
+    }
+
     public abstract void fillGetByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException;
+
+    public abstract void fillDeleteByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException;
+
+    @Override
+    public abstract String generateDeleteByIdQuery();
 
     @Override
     public abstract String generateGetByIdQuery();
