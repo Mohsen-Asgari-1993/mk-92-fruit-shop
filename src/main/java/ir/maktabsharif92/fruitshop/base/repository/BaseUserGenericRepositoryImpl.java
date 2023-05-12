@@ -6,9 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class BaseUserGenericRepositoryImpl<T extends BaseUser>
+public abstract class BaseUserGenericRepositoryImpl<T extends BaseUser>
         extends BaseGenericRepositoryImpl<T, Long>
         implements BaseUserGenericRepository<T> {
 
@@ -17,28 +18,81 @@ public class BaseUserGenericRepositoryImpl<T extends BaseUser>
     }
 
     @Override
-    protected String getEntityTableName() {
+    public T getById(Long id) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                generateGetByIdQuery()
+        );
+
+//        SELECT * FROM %s WHERE id = ?
+//        SELECT * FROM %s WHERE id = ? and user_type = ?
+
+        fillGetByIdPrepareStatement(preparedStatement, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return mapFullResultSetToEntity(resultSet);
+        }
         return null;
+    }
+
+    public abstract void fillGetByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException;
+
+    public abstract String generateGetByIdQuery();
+
+    @Override
+    protected String getEntityTableName() {
+        return BaseUser.TABLE_NAME;
     }
 
     @Override
     protected T mapFullResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return null;
+        T t = getNewInstance();
+        t.setId(resultSet.getLong(1));
+        t.setFirstName(resultSet.getString(2));
+        t.setLastName(resultSet.getString(3));
+        t.setUsername(resultSet.getString(4));
+        t.setPassword(resultSet.getString(5));
+        t.setAge(resultSet.getInt(6));
+        t.setUserType(resultSet.getString(7));
+        t.setNationalCode(resultSet.getString(8));
+        t.setIsActive(
+                resultSet.getString(9).equals("true")
+        );
+        return t;
+    }
+
+    protected abstract T getNewInstance();
+
+    @Override
+    protected void fillIdInPrepareStatement(PreparedStatement preparedStatement,
+                                            Long id,
+                                            int parameterIndex) throws SQLException {
+        preparedStatement.setLong(parameterIndex, id);
     }
 
     @Override
-    protected void fillIdInPrepareStatement(PreparedStatement preparedStatement, Long id, int parameterIndex) throws SQLException {
-
-    }
-
-    @Override
-    protected String[] getInsertColumnNamesArray() {
-        return new String[0];
+    protected List<String> getInsertColumnNamesArray() {
+        List<String> insertColumns = new ArrayList<>();
+        insertColumns.add(BaseUser.FIRST_NAME);
+        insertColumns.add(BaseUser.LAST_NAME);
+        insertColumns.add(BaseUser.USERNAME);
+        insertColumns.add(BaseUser.PASSWORD);
+        insertColumns.add(BaseUser.AGE);
+        insertColumns.add(BaseUser.USER_TYPE);
+        insertColumns.add(BaseUser.NATIONAL_CODE);
+        insertColumns.add(BaseUser.IS_ACTIVE);
+        return insertColumns;
     }
 
     @Override
     protected void fillPrepStatementForSave(PreparedStatement preparedStatement, T t) throws SQLException {
-
+        preparedStatement.setString(1, t.getFirstName());
+        preparedStatement.setString(2, t.getLastName());
+        preparedStatement.setString(3, t.getUsername());
+        preparedStatement.setString(4, t.getPassword());
+        preparedStatement.setInt(5, t.getAge());
+        preparedStatement.setString(6, t.getUserType());
+        preparedStatement.setString(7, t.getNationalCode());
+        preparedStatement.setString(8, t.getIsActive() ? "true" : "false");
     }
 
     @Override
