@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 public class WalletRepositoryImpl
         extends BaseGenericRepositoryImpl<Wallet, Long>
@@ -52,13 +54,13 @@ public class WalletRepositoryImpl
     }
 
     @Override
-    protected String[] getInsertColumnNamesArray() {
-        return new String[]{
+    protected List<String> getInsertColumnNamesArray() {
+        return Arrays.asList(
                 Wallet.CUSTOMER_ID,
                 Wallet.TOTAL_AMOUNT,
                 Wallet.CASH_AMOUNT,
                 Wallet.CREDIT_AMOUNT
-        };
+        );
     }
 
     @Override
