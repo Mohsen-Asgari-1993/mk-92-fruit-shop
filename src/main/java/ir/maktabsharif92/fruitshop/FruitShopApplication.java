@@ -1,7 +1,10 @@
 package ir.maktabsharif92.fruitshop;
 
-import ir.maktabsharif92.fruitshop.domain.Wallet;
-import ir.maktabsharif92.fruitshop.service.WalletService;
+import com.github.javafaker.Faker;
+import ir.maktabsharif92.fruitshop.domain.Client;
+import ir.maktabsharif92.fruitshop.domain.Manager;
+import ir.maktabsharif92.fruitshop.domain.enumeration.UserType;
+import ir.maktabsharif92.fruitshop.service.ManagerService;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
 import ir.maktabsharif92.fruitshop.util.Datasource;
 
@@ -9,27 +12,58 @@ import java.sql.SQLException;
 
 public class FruitShopApplication {
 
+    private static final Faker faker = new Faker();
+
     public static void main(String[] args) throws SQLException {
 
-        WalletService walletService = ApplicationContext.getWalletService();
+        ManagerService managerService = ApplicationContext.getManagerService();
 
-        initNewWallet(walletService, new Wallet(
-                15L,
-                1000L,
-                1000L,
-                0L
-        ));
-
-        walletService.getAll().forEach(System.out::println);
+        managerService.save(
+                getMangerNewInstance()
+        );
 
         Datasource.getConnection().close();
 
     }
 
-    private static void initNewWallet(WalletService walletService, Wallet wallet) throws SQLException {
-        walletService.save(
-                wallet
-        );
+    private static Manager getMangerNewInstance() {
+        return Manager.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .username(faker.name().username())
+                .password(
+                        faker.code().imei()
+                )
+                .age(faker.number().numberBetween(18, 100))
+                .userType(UserType.MANAGER.name())
+                .nationalCode(
+                        faker.code().imei()
+                )
+                .isActive(true)
+                .isSuperManager(
+                        true
+                )
+                .build();
+    }
+
+    private static Client getClientNewInstance() {
+        return Client.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .username(faker.name().username())
+                .password(
+                        faker.code().imei()
+                )
+                .age(faker.number().numberBetween(18, 100))
+                .userType(UserType.CLIENT.name())
+                .nationalCode(
+                        faker.code().imei()
+                )
+                .isActive(true)
+                .code(
+                        faker.code().isbn10()
+                )
+                .build();
     }
 
 }

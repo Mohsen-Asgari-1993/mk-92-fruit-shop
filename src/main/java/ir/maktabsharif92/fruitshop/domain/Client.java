@@ -1,10 +1,7 @@
 package ir.maktabsharif92.fruitshop.domain;
 
 import ir.maktabsharif92.fruitshop.base.domain.BaseUser;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
@@ -16,4 +13,11 @@ public class Client extends BaseUser {
 
     private String code;
 
+    @Builder
+    public Client(String firstName, String lastName, String username,
+                  String password, Integer age, String userType,
+                  String nationalCode, Boolean isActive, String code) {
+        super(firstName, lastName, username, password, age, userType, nationalCode, isActive);
+        this.code = code;
+    }
 }

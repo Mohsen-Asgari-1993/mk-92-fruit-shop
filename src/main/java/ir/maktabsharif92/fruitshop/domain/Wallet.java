@@ -1,15 +1,13 @@
 package ir.maktabsharif92.fruitshop.domain;
 
 import ir.maktabsharif92.fruitshop.base.domain.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Wallet extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "wallet";
