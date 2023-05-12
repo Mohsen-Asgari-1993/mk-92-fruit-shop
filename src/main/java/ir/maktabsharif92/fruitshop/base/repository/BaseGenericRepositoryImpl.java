@@ -103,13 +103,13 @@ public abstract class BaseGenericRepositoryImpl<T extends BaseEntity<S>, S>
     }
 
     protected String generateInsertQuery() {
-        String[] columnNames = getInsertColumnNamesArray();
+        List<String> columnNames = getInsertColumnNamesArray();
 
         return String.format(
                 INSERT_QUERY_TEMPLATE,
                 getEntityTableName(),
                 String.join(",", columnNames),
-                generateQuestionMarkForInsertQuery(columnNames.length)
+                generateQuestionMarkForInsertQuery(columnNames.size())
         );
     }
 
@@ -133,7 +133,7 @@ public abstract class BaseGenericRepositoryImpl<T extends BaseEntity<S>, S>
                                                      S id,
                                                      int parameterIndex) throws SQLException;
 
-    protected abstract String[] getInsertColumnNamesArray();
+    protected abstract List<String> getInsertColumnNamesArray();
 
     protected abstract void fillPrepStatementForSave(PreparedStatement preparedStatement,
                                                      T t) throws SQLException;
