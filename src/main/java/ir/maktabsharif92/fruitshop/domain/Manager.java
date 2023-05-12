@@ -19,4 +19,12 @@ public class Manager extends BaseUser {
         super(firstName, lastName, username, password, age, userType, nationalCode, isActive);
         this.isSuperManager = isSuperManager;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{ " +
+                super.toString() +
+                ", isSuperManager=" + isSuperManager +
+                '}';
+    }
 }

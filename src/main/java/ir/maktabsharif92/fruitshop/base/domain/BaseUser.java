@@ -41,4 +41,14 @@ public class BaseUser extends BaseEntity<Long> {
 
     private Boolean isActive;
 
+    @Override
+    public String toString() {
+        return "BaseUser{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", userType='" + userType + '\'' +
+                ", nationalCode='" + nationalCode + '\'' +
+                '}';
+    }
 }

@@ -20,4 +20,12 @@ public class Client extends BaseUser {
         super(firstName, lastName, username, password, age, userType, nationalCode, isActive);
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "Client{ " +
+                super.toString() +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import ir.maktabsharif92.fruitshop.domain.Client;
 import ir.maktabsharif92.fruitshop.domain.Manager;
 import ir.maktabsharif92.fruitshop.domain.enumeration.UserType;
-import ir.maktabsharif92.fruitshop.service.ManagerService;
 import ir.maktabsharif92.fruitshop.util.ApplicationContext;
 import ir.maktabsharif92.fruitshop.util.Datasource;
 
@@ -16,11 +15,16 @@ public class FruitShopApplication {
 
     public static void main(String[] args) throws SQLException {
 
-        ManagerService managerService = ApplicationContext.getManagerService();
+//        1   client
+        System.out.println(ApplicationContext.getClientService().getById(1L));
+        System.out.println(ApplicationContext.getManagerService().getById(1L));
+        System.out.println(ApplicationContext.getUserService().getById(1L));
 
-        managerService.save(
-                getMangerNewInstance()
-        );
+//        3 manager
+//        System.out.println(ApplicationContext.getClientService().getById(3L));
+//        System.out.println(ApplicationContext.getManagerService().getById(3L));
+//        System.out.println(ApplicationContext.getUserService().getById(3L));
+
 
         Datasource.getConnection().close();
 
