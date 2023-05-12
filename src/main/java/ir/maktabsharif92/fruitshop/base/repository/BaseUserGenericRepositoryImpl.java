@@ -36,7 +36,11 @@ public abstract class BaseUserGenericRepositoryImpl<T extends BaseUser>
 
     public abstract void fillGetByIdPrepareStatement(PreparedStatement preparedStatement, Long id) throws SQLException;
 
+    @Override
     public abstract String generateGetByIdQuery();
+
+    @Override
+    public abstract String generateGetAllQuery();
 
     @Override
     protected String getEntityTableName() {

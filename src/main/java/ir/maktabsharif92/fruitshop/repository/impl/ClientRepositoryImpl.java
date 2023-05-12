@@ -41,6 +41,17 @@ public class ClientRepositoryImpl
     }
 
     @Override
+    public String generateGetAllQuery() {
+
+        String query = GET_ALL_QUERY_TEMPLATE
+                .concat(" where user_type = '" + UserType.CLIENT.name() + "'");
+
+        return String.format(
+                query, getEntityTableName()
+        );
+    }
+
+    @Override
     protected Client getNewInstance() {
         return new Client();
     }

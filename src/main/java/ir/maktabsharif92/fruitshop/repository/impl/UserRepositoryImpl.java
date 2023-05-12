@@ -32,6 +32,14 @@ public class UserRepositoryImpl
     }
 
     @Override
+    public String generateGetAllQuery() {
+        return String.format(
+                GET_ALL_QUERY_TEMPLATE,
+                getEntityTableName()
+        );
+    }
+
+    @Override
     protected BaseUser getNewInstance() {
         return new BaseUser();
     }

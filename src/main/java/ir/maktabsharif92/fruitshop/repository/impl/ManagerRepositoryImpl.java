@@ -41,6 +41,17 @@ public class ManagerRepositoryImpl
     }
 
     @Override
+    public String generateGetAllQuery() {
+
+        String query = GET_ALL_QUERY_TEMPLATE
+                .concat(" where user_type = '" + UserType.MANAGER.name() + "'");
+
+        return String.format(
+                query, getEntityTableName()
+        );
+    }
+
+    @Override
     protected Manager getNewInstance() {
         return new Manager();
     }
@@ -65,7 +76,7 @@ public class ManagerRepositoryImpl
     protected Manager mapFullResultSetToEntity(ResultSet resultSet) throws SQLException {
         Manager manager = super.mapFullResultSetToEntity(resultSet);
         manager.setIsSuperManager(
-                resultSet.getString(10).equals("true")
+                "true".equals(resultSet.getString(10))
         );
         return manager;
     }

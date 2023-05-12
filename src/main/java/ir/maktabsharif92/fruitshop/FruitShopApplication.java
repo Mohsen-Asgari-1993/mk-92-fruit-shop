@@ -15,16 +15,16 @@ public class FruitShopApplication {
 
     public static void main(String[] args) throws SQLException {
 
-//        1   client
-        System.out.println(ApplicationContext.getClientService().getById(1L));
-        System.out.println(ApplicationContext.getManagerService().getById(1L));
-        System.out.println(ApplicationContext.getUserService().getById(1L));
 
-//        3 manager
-//        System.out.println(ApplicationContext.getClientService().getById(3L));
-//        System.out.println(ApplicationContext.getManagerService().getById(3L));
-//        System.out.println(ApplicationContext.getUserService().getById(3L));
-
+        ApplicationContext.getUserService().getAll()
+                .forEach(System.out::println);
+        System.out.println();
+        ApplicationContext.getManagerService().getAll()
+                .forEach(System.out::println);
+        System.out.println();
+        ApplicationContext.getClientService().getAll()
+                .forEach(System.out::println);
+        System.out.println();
 
         Datasource.getConnection().close();
 
