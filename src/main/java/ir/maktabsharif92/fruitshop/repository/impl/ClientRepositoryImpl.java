@@ -74,6 +74,19 @@ public class ClientRepositoryImpl
     }
 
     @Override
+    protected void fillGetByUsernamePrepStatement(PreparedStatement preparedStatement, String username) throws SQLException {
+        super.fillGetByUsernamePrepStatement(preparedStatement, username);
+        preparedStatement.setString(2, UserType.CLIENT.name());
+    }
+
+    @Override
+    protected String generateGetByUsernameQuery() {
+        return GET_BY_USERNAME_QUERY_TEMPLATE.concat(
+                " and user_type = ?"
+        );
+    }
+
+    @Override
     protected Client getNewInstance() {
         return new Client();
     }

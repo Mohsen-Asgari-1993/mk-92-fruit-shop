@@ -13,6 +13,11 @@ public abstract class BaseUserGenericRepositoryImpl<T extends BaseUser>
         extends BaseGenericRepositoryImpl<T, Long>
         implements BaseUserGenericRepository<T> {
 
+    //    public static final String GET_BY_USERNAME_LIKE_QUERY_TEMPLATE =
+//            "select * form " + BaseUser.TABLE_NAME + " where " + BaseUser.USERNAME + " like ?";
+    public static final String GET_BY_USERNAME_QUERY_TEMPLATE =
+            "select * from " + BaseUser.TABLE_NAME + " where " + BaseUser.USERNAME + " = ?";
+
     public BaseUserGenericRepositoryImpl(Connection connection) {
         super(connection);
     }
@@ -114,8 +119,32 @@ public abstract class BaseUserGenericRepositoryImpl<T extends BaseUser>
     }
 
     @Override
-    public T getByUsername(String username) {
+    public T getByUsername(String username) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                generateGetByUsernameQuery()
+        );
+        fillGetByUsernamePrepStatement(preparedStatement, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return mapFullResultSetToEntity(resultSet);
+        }
         return null;
+    }
+
+    //    protected abstract void fillGetByUsernamePrepStatement(PreparedStatement preparedStatement, String username);
+    protected void fillGetByUsernamePrepStatement(PreparedStatement preparedStatement, String username)
+            throws SQLException {
+//        for like query
+//        preparedStatement.setString(
+//                1, "%" + username + "%"
+//        );
+        preparedStatement.setString(
+                1, username
+        );
+    }
+
+    protected String generateGetByUsernameQuery() {
+        return GET_BY_USERNAME_QUERY_TEMPLATE;
     }
 
     @Override

@@ -3,6 +3,7 @@ package ir.maktabsharif92.fruitshop.base.service;
 import ir.maktabsharif92.fruitshop.base.domain.BaseUser;
 import ir.maktabsharif92.fruitshop.base.repository.BaseUserGenericRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class BaseUserGenericServiceImpl
@@ -15,7 +16,7 @@ public class BaseUserGenericServiceImpl
     }
 
     @Override
-    public T getByUsername(String username) {
+    public T getByUsername(String username) throws SQLException {
         return repository.getByUsername(username);
     }
 

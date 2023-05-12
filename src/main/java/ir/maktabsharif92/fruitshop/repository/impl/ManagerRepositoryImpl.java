@@ -95,6 +95,19 @@ public class ManagerRepositoryImpl
     }
 
     @Override
+    protected void fillGetByUsernamePrepStatement(PreparedStatement preparedStatement, String username) throws SQLException {
+        super.fillGetByUsernamePrepStatement(preparedStatement, username);
+        preparedStatement.setString(2, UserType.MANAGER.name());
+    }
+
+    @Override
+    protected String generateGetByUsernameQuery() {
+        return GET_BY_USERNAME_QUERY_TEMPLATE.concat(
+                " and user_type = ?"
+        );
+    }
+
+    @Override
     protected Manager mapFullResultSetToEntity(ResultSet resultSet) throws SQLException {
         Manager manager = super.mapFullResultSetToEntity(resultSet);
         manager.setIsSuperManager(

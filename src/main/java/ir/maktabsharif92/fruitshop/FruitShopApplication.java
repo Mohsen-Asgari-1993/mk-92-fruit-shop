@@ -15,37 +15,16 @@ public class FruitShopApplication {
 
     public static void main(String[] args) throws SQLException {
 
-        System.out.println("start");
-        ApplicationContext.getUserService().getAll()
-                .forEach(System.out::println);
-        System.out.println();
-
-        ApplicationContext.getManagerService().deleteById(2L);
-        System.out.println("after manger service delete: 2L");
-        ApplicationContext.getUserService().getAll()
-                .forEach(System.out::println);
-        System.out.println();
-
-        ApplicationContext.getClientService().deleteById(4L);
-        System.out.println("after client service delete: 4L");
-        ApplicationContext.getUserService().getAll()
-                .forEach(System.out::println);
-        System.out.println();
-
-
-        ApplicationContext.getManagerService().deleteById(4L);
-        System.out.println("after manger service delete: 4L");
-
-        ApplicationContext.getUserService().getAll()
-                .forEach(System.out::println);
-        System.out.println();
-
-        ApplicationContext.getClientService().deleteById(2L);
-        System.out.println("after client service delete: 2L");
-
-        ApplicationContext.getUserService().getAll()
-                .forEach(System.out::println);
-        System.out.println();
+        System.out.println(
+                ApplicationContext.getManagerService().getByUsername(
+                        "magaly.wiza"
+                )
+        );
+        System.out.println(
+                ApplicationContext.getClientService().getByUsername(
+                        "lesley.hane"
+                )
+        );
 
         Datasource.getConnection().close();
 
