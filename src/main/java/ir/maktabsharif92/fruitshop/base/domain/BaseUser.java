@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+//  @Inheritance(strategy = SINGLE_TABLE)  *
+//  @Inheritance(strategy = TABLE_PER_CLASS)
+//  @Inheritance(strategy = JOIN)
 public class BaseUser extends BaseEntity<Long> {
 
     public static final String TABLE_NAME = "base_user";
